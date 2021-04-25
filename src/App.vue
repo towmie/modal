@@ -1,54 +1,32 @@
 <template>
   <div @mouseover="lostModal" class="bg">
-    <button @click="toggleModal" v-if="!visible">Push</button>
-    <div
-      v-else
-      class="modal"
-      @mousedown="dragStart"
-      @mousemove="dragging"
-      @mouseup="drop"
-    >
-      hahahahaha
-      <button @click="toggleModal">Close</button>
-    </div>
+    <open-button v-if="!visability"></open-button>
+    <teleport to="body" v-else>
+      <modal-box></modal-box>
+    </teleport>
   </div>
 </template>
 
 <script>
+import OpenButton from "./components/OpenButton.vue";
+import ModalBox from "./components/ModalBox.vue";
 export default {
+  components: { OpenButton, ModalBox },
   data() {
     return {
-      visible: false,
-      picked: false,
       pickedX: null,
       pickedY: null,
     };
   },
   methods: {
-    toggleModal() {
-      this.visible = !this.visible;
-    },
-    dragStart(e) {
-      const el = document.querySelector(".modal");
-      el.style.position = "absolute";
-      this.picked = true;
-      this.pickedX = e.offsetX;
-      this.pickedY = e.offsetY;
-    },
     lostModal(e) {
-      if (!e.target.classList.contains("modal")) this.picked = false;
-      console.log(this.picked);
+      if (!e.target.classList.contains("modal"))
+        this.$store.dispatch("modalIsPicked", false);
     },
-    dragging(e) {
-      const el = document.querySelector(".modal");
-
-      if (this.picked) {
-        el.style.top = e.clientY - this.pickedY + "px";
-        el.style.left = e.clientX - this.pickedX + "px";
-      }
-    },
-    drop() {
-      this.picked = false;
+  },
+  computed: {
+    visability() {
+      return this.$store.getters.getVisability;
     },
   },
 };
@@ -59,20 +37,15 @@ export default {
   margin: 0;
   padding: 0;
 }
+body {
+  position: relative;
+}
 .bg {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   width: 100vw;
   height: 100vh;
-  background-color: #000;
-}
-.modal {
-  cursor: grab;
-  background-color: rgb(136, 26, 26);
-  color: #fff;
-  padding: 20px;
-  width: 300px;
-  height: 40px;
-}
-.modal:active {
-  cursor: grabbing;
+  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
 }
 </style>
