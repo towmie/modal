@@ -52,9 +52,9 @@ export default {
 .modal {
   cursor: grab;
   position: absolute;
-  left: calc(50% - 170px);
+  left: calc(50% - 175px);
   top: 30%;
-  padding: 20px;
+  padding: 25px;
 
   max-width: 300px;
   width: 100%;
