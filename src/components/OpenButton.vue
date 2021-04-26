@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
 .open {
+  margin-top: 250px;
   padding: 10px 20px;
 
   font-size: 18px;

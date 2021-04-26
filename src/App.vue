@@ -37,6 +37,11 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+html {
+  box-sizing: border-box;
+}
+
 body {
   position: relative;
 }

@@ -7,6 +7,5 @@ export default {
 
   modalIsPicked(state, payload) {
     state.isPicked = payload;
-    console.log(state.isPicked);
   },
 };

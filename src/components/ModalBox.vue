@@ -5,10 +5,8 @@
     @mousemove="dragging"
     @mouseup="drop"
   >
-    <p class="heading">
-      Hello World!
-      <button @click="toggleModalVis" class="close">Close</button>
-    </p>
+    <span class="text">Hello World!</span>
+    <button @click="toggleModalVis" class="close"></button>
   </div>
 </template>
 
@@ -46,18 +44,49 @@ export default {
 
 <style scoped>
 .modal {
-  position: absolute;
-  left: 50%;
-  top: 30%;
   cursor: grab;
+  position: absolute;
+  left: calc(50% - 170px);
+  top: 30%;
+  padding: 20px;
+
+  max-width: 300px;
+  width: 100%;
+  min-height: 40px;
+
   background-color: #fff;
   border-radius: 5px;
   color: rgb(12, 2, 107);
-  padding: 20px;
-  width: 300px;
-  height: 40px;
+  text-align: center;
 }
 .modal:active {
   cursor: grabbing;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+
+  background-color: transparent;
+  background-image: url(./../assets/close.svg);
+  background-size: 15px 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border-radius: 3px;
+  border: none;
+  transition: all 0.2s ease-out;
+}
+.close:hover {
+  background-color: #d8f1fe;
+  background-image: url(./../assets/close-hover.svg);
 }
 </style>
