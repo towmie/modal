@@ -36,7 +36,7 @@ export default {
     dragging(e) {
       const el = document.querySelector(".modal");
 
-      if (this.picked) {
+      if (this.picked && !e.target.classList.contains("close")) {
         el.style.top = e.clientY - this.pickedY + "px";
         el.style.left = e.clientX - this.pickedX + "px";
       }
