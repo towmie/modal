@@ -13,6 +13,8 @@ export default {};
   padding: 10px 20px;
 
   font-size: 18px;
+  font-family: inherit;
+
   border: none;
   border-radius: 5px;
   background-color: #fff;

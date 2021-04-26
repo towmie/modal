@@ -6,7 +6,7 @@
         @visable="toggleVis"
         @is-picked="togglePicked"
         :is-visable="isVisable"
-        :not-picked="isPicked"
+        :picked="isPicked"
       ></modal-box>
     </teleport>
   </div>
@@ -26,23 +26,14 @@ export default {
   methods: {
     lostModal(e) {
       if (!e.target.classList.contains("modal")) this.isPicked = false;
-      // this.$store.dispatch("modalIsPicked", false);
     },
     toggleVis() {
       this.isVisable = !this.isVisable;
-
-      // this.$store.dispatch("toggleVis", true);
     },
     togglePicked(val) {
-      // console.log(val);
       this.isPicked = val;
     },
   },
-  // computed: {
-  //   isVisable() {
-  //     return this.$store.getters.getVisability;
-  //   },
-  // },
 };
 </script>
 
@@ -58,6 +49,7 @@ html {
 
 body {
   position: relative;
+  font-family: "Roboto", sans-serif;
 }
 .bg {
   display: flex;

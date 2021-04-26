@@ -15,40 +15,34 @@
 
 <script>
 export default {
-  props: ["isVisable", "notPicked"],
+  props: ["isVisable", "picked"],
+  data() {
+    return {
+      pickedX: null,
+      pickedY: null,
+    };
+  },
   methods: {
     toggleModalVis() {
       this.$emit("visable");
     },
 
     dragStart(e) {
-      // this.notPicked = true;
       this.$emit("isPicked", true);
-      console.log(this.notPicked);
-      // this.$store.dispatch("modalIsPicked", true);
       this.pickedX = e.offsetX;
       this.pickedY = e.offsetY;
     },
+
     dragging(e) {
       const el = document.querySelector(".modal");
 
-      if (this.notPicked) {
+      if (this.picked) {
         el.style.top = e.clientY - this.pickedY + "px";
         el.style.left = e.clientX - this.pickedX + "px";
       }
     },
     drop() {
       this.$emit("isPicked", false);
-
-      // this.$store.dispatch("modalIsPicked", false);
-    },
-  },
-  computed: {
-    isPicked() {
-      return this.$store.getters.getIspicked;
-    },
-    visability() {
-      return this.$store.getters.getVisability;
     },
   },
 };
@@ -82,6 +76,7 @@ export default {
 .close {
   cursor: pointer;
   position: absolute;
+  z-index: 10;
   top: 5px;
   right: 5px;
   width: 25px;
@@ -107,7 +102,6 @@ export default {
 }
 .v-enter-active {
   transition: all 0.3s ease-in;
-  /* animation: fade 0.3s ease-out; */
 }
 .v-enter-to {
   opacity: 1;
@@ -117,18 +111,8 @@ export default {
 }
 .v-leave-active {
   transition: all 0.3s ease-out;
-  /* animation: fade 0.3s ease-in; */
 }
 .v-leave-active {
   opacity: 0;
 }
-
-/* @keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-} */
 </style>
