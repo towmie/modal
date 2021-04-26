@@ -1,8 +1,8 @@
 "use strict";
 
 export default {
-  toggleVis(state) {
-    state.visible = !state.visible;
+  toggleVis(state, payload) {
+    state.visible = payload;
   },
 
   modalIsPicked(state, payload) {

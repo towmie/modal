@@ -1,8 +1,13 @@
 <template>
   <div @mouseover="lostModal" class="bg">
-    <open-button v-if="!visability"></open-button>
-    <teleport to="body" v-else>
-      <modal-box></modal-box>
+    <open-button v-if="!isVisable" @click="toggleVis"></open-button>
+    <teleport to="body">
+      <modal-box
+        @visable="toggleVis"
+        @is-picked="togglePicked"
+        :is-visable="isVisable"
+        :not-picked="isPicked"
+      ></modal-box>
     </teleport>
   </div>
 </template>
@@ -14,21 +19,30 @@ export default {
   components: { OpenButton, ModalBox },
   data() {
     return {
-      pickedX: null,
-      pickedY: null,
+      isVisable: false,
+      isPicked: false,
     };
   },
   methods: {
     lostModal(e) {
-      if (!e.target.classList.contains("modal"))
-        this.$store.dispatch("modalIsPicked", false);
+      if (!e.target.classList.contains("modal")) this.isPicked = false;
+      // this.$store.dispatch("modalIsPicked", false);
+    },
+    toggleVis() {
+      this.isVisable = !this.isVisable;
+
+      // this.$store.dispatch("toggleVis", true);
+    },
+    togglePicked(val) {
+      // console.log(val);
+      this.isPicked = val;
     },
   },
-  computed: {
-    visability() {
-      return this.$store.getters.getVisability;
-    },
-  },
+  // computed: {
+  //   isVisable() {
+  //     return this.$store.getters.getVisability;
+  //   },
+  // },
 };
 </script>
 

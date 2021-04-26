@@ -1,42 +1,54 @@
 <template>
-  <div
-    class="modal"
-    @mousedown="dragStart"
-    @mousemove="dragging"
-    @mouseup="drop"
-  >
-    <span class="text">Hello World!</span>
-    <button @click="toggleModalVis" class="close"></button>
-  </div>
+  <transition>
+    <div
+      v-if="isVisable"
+      class="modal"
+      @mousedown="dragStart"
+      @mousemove="dragging"
+      @mouseup="drop"
+    >
+      <span class="text">Hello World!</span>
+      <button @click="toggleModalVis" class="close"></button>
+    </div>
+  </transition>
 </template>
 
 <script>
 export default {
+  props: ["isVisable", "notPicked"],
   methods: {
     toggleModalVis() {
-      this.$store.dispatch("toggleVis");
+      this.$emit("visable");
     },
 
     dragStart(e) {
-      this.$store.dispatch("modalIsPicked", true);
+      // this.notPicked = true;
+      this.$emit("isPicked", true);
+      console.log(this.notPicked);
+      // this.$store.dispatch("modalIsPicked", true);
       this.pickedX = e.offsetX;
       this.pickedY = e.offsetY;
     },
     dragging(e) {
       const el = document.querySelector(".modal");
 
-      if (this.isPicked) {
+      if (this.notPicked) {
         el.style.top = e.clientY - this.pickedY + "px";
         el.style.left = e.clientX - this.pickedX + "px";
       }
     },
     drop() {
-      this.$store.dispatch("modalIsPicked", false);
+      this.$emit("isPicked", false);
+
+      // this.$store.dispatch("modalIsPicked", false);
     },
   },
   computed: {
     isPicked() {
       return this.$store.getters.getIspicked;
+    },
+    visability() {
+      return this.$store.getters.getVisability;
     },
   },
 };
@@ -74,6 +86,7 @@ export default {
   right: 5px;
   width: 25px;
   height: 25px;
+  padding: 2px;
 
   background-color: transparent;
   background-image: url(./../assets/close.svg);
@@ -89,4 +102,33 @@ export default {
   background-color: #d8f1fe;
   background-image: url(./../assets/close-hover.svg);
 }
+.v-enter-from {
+  opacity: 0;
+}
+.v-enter-active {
+  transition: all 0.3s ease-in;
+  /* animation: fade 0.3s ease-out; */
+}
+.v-enter-to {
+  opacity: 1;
+}
+.v-leave-active {
+  opacity: 1;
+}
+.v-leave-active {
+  transition: all 0.3s ease-out;
+  /* animation: fade 0.3s ease-in; */
+}
+.v-leave-active {
+  opacity: 0;
+}
+
+/* @keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+} */
 </style>

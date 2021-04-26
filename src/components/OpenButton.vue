@@ -1,19 +1,14 @@
 <template>
-  <button @click="toggleModalVis" class="open">Открыть окно</button>
+  <button class="open">Открыть окно</button>
 </template>
 
 <script>
-export default {
-  methods: {
-    toggleModalVis() {
-      this.$store.dispatch("toggleVis");
-    },
-  },
-};
+export default {};
 </script>
 
 <style scoped>
 .open {
+  cursor: pointer;
   margin-top: 250px;
   padding: 10px 20px;
 

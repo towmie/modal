@@ -1,8 +1,8 @@
 "use strict";
 
 export default {
-  toggleVis(context) {
-    context.commit("toggleVis");
+  toggleVis(context, payload) {
+    context.commit("toggleVis", payload);
   },
   modalIsPicked(context, payload) {
     context.commit("modalIsPicked", payload);
