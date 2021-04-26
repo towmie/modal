@@ -58,7 +58,7 @@ export default {
 
   max-width: 300px;
   width: 100%;
-  min-height: 40px;
+  /* min-height: 40px; */
 
   background-color: #fff;
   border-radius: 5px;
